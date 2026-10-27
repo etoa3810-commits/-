@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#B2E0D0">
+<title>Artex: ИИ-чат с несколькими моделями</title>
+<meta name="description" content="Artex — мобильный чат с ИИ: офлайн-модель, онлайн-модели через OpenRouter, проекты с несколькими агентами и Artex Code. Инструкция, как получить бесплатный API-ключ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--mint:#B2E0D0;--mint2:#94D1BC;--ink:#1F3B32;--soft:#4b6a5f;--deep:#2f7d68;--paper:#f5faf7;--line:#cfe5db}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--paper);color:var(--ink)}
+h1,h2,h3,.num{font-family:Oswald,Impact,"Arial Narrow",sans-serif;font-weight:700;line-height:1.1;letter-spacing:.01em}
+a{color:var(--deep)}
+:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:0;z-index:5;background:var(--mint);border-bottom:2px solid var(--ink)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px}
+.brand{font:700 26px Oswald,Impact,sans-serif;letter-spacing:.06em;color:var(--ink);text-decoration:none}
+nav{display:flex;gap:20px;font-size:15px}
+nav a{color:var(--ink);text-decoration:none;font-weight:600}
+nav a:hover{text-decoration:underline}
+.hero{background:var(--mint);border-bottom:2px solid var(--ink)}
+.hero .wrap{padding-top:64px;padding-bottom:60px}
+.hero h1{font-size:clamp(38px,6vw,64px);margin-bottom:18px;max-width:14em}
+.hero p{font-size:19px;max-width:32em;margin-bottom:12px}
+.hero .note{font-size:15px;color:#2d4a40}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 18px}
+.btn{display:inline-block;padding:12px 22px;border:2px solid var(--ink);border-radius:10px;font-weight:700;text-decoration:none;color:var(--ink);background:#fff}
+.btn.main{background:var(--ink);color:#fff}
+.btn:hover{transform:translateY(-1px)}
+section{padding:64px 0 8px}
+h2{font-size:clamp(30px,4.4vw,42px);margin-bottom:10px}
+.lead{color:var(--soft);max-width:36em;margin-bottom:28px}
+.model{display:grid;grid-template-columns:190px 1fr;gap:6px 28px;padding:20px 0;border-top:2px solid var(--line)}
+.model:last-child{border-bottom:2px solid var(--line)}
+.model h3{font-size:26px}
+.model small{display:block;font:500 14px system-ui,sans-serif;color:var(--soft);margin-top:4px;letter-spacing:0}
+.model.pro h3{color:var(--deep)}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:34px 44px}
+.feat h3{font-size:23px;margin-bottom:6px}
+.feat p{color:#31503f}
+.warn{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:16px 20px;margin-top:24px;font-size:16px}
+.steps{list-style:none;margin-top:30px}
+.steps li{display:grid;grid-template-columns:58px 1fr;gap:4px 14px;padding:22px 0;border-top:2px solid var(--line)}
+.steps .num{font-size:44px;color:var(--mint2);-webkit-text-stroke:1.5px var(--ink);line-height:1}
+.steps h3{font-size:23px;margin-bottom:4px}
+.steps p+p{margin-top:8px}
+code{font:600 .92em ui-monospace,Menlo,Consolas,monospace;background:#e3f3ec;border:1px solid var(--line);border-radius:6px;padding:1px 7px;word-break:break-all}
+button.copy{font:inherit;font-size:14px;font-weight:700;margin-left:8px;padding:3px 10px;border:2px solid var(--ink);border-radius:8px;background:#fff;cursor:pointer}
+.limits{display:grid;grid-template-columns:repeat(3,1fr);margin:30px 0 0;border:2px solid var(--ink);border-radius:12px;background:#fff;overflow:hidden}
+.limits div{padding:16px 18px}
+.limits div+div{border-left:2px solid var(--line)}
+.limits b{display:block;font:700 30px Oswald,Impact,sans-serif;color:var(--deep)}
+.limits span{font-size:14.5px;color:var(--soft)}
+details{border-top:2px solid var(--line);padding:16px 0}
+details:last-of-type{border-bottom:2px solid var(--line)}
+summary{font-weight:700;cursor:pointer;font-size:18px}
+details p{margin-top:10px;color:#31503f;max-width:40em}
+footer{margin-top:70px;background:var(--ink);color:#d7efe5;padding:26px 0;font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(max-width:720px){
+ nav{display:none}
+ .hero .wrap{padding-top:36px;padding-bottom:40px}
+ .model{grid-template-columns:1fr}
+ .feat{grid-template-columns:1fr}
+ .limits{grid-template-columns:1fr}.limits div+div{border-left:0;border-top:2px solid var(--line)}
+ .steps li{grid-template-columns:44px 1fr}.steps .num{font-size:34px}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+ <a class="brand" href="#top">ARTEX</a>
+ <nav><a href="#models">Модели</a><a href="#features">Возможности</a><a href="#key">API-ключ</a><a href="#faq">Вопросы</a></nav>
+</div></header>
+
+<div class="hero" id="top"><div class="wrap">
+ <div>
+  <h1>Чат с ИИ в телефоне, у которого четыре режима</h1>
+  <p>Artex — приложение-чат: есть модель, которая отвечает без интернета, онлайн-модели через OpenRouter, обсуждение задач несколькими агентами и встроенная панель для кода.</p>
+  <div class="btns">
+   <a class="btn main" href="#key">Получить API-ключ</a>
+   <a class="btn" href="#models">Какие бывают модели</a>
+  </div>
+  <p class="note">Сейчас Artex в бете (версия 0.9). Своей нейросети в нём нет: онлайн-режимы работают на сторонних моделях.</p>
+ </div>
+</div></div>
+
+<main class="wrap">
+<section id="models">
+ <h2>Четыре модели в одном чате</h2>
+ <p class="lead">Переключаются кнопкой в шапке. Каждая модель подходит для своего случая, поэтому ключ нужен не всем.</p>
+ <div class="model"><h3>Offline 1.0<small>ключ не нужен</small></h3><p>Отвечает из встроенной базы и работает без интернета: время, дата, шутки, советы, быстрые подсказки по приложению. Свободный разговор и сложные вопросы ей не по силам, для этого есть онлайн-модели.</p></div>
+ <div class="model"><h3>Nova 1.0<small>нужен ключ OpenRouter</small></h3><p>Основная онлайн-модель. Отвечает на любые вопросы через OpenRouter. Какая именно модель стоит за Nova, выбираете вы в настройках, в том числе бесплатную.</p></div>
+ <div class="model pro"><h3>Pro<small>нужен ключ OpenRouter</small></h3><p>Сначала рассуждает по шагам, потом отвечает, и ход рассуждения можно посмотреть. Лимит на стороне приложения: 15 запросов в день, счётчик обновляется в полночь.</p></div>
+ <div class="model"><h3>Custom<small>свой API</small></h3><p>Подключаете любой API, совместимый с OpenAI: адрес, ключ, название модели и своя системная инструкция. Ключ OpenRouter для него не используется.</p></div>
+</section>
+
+<section id="features">
+ <h2>Что ещё умеет Artex</h2>
+ <p class="lead">Кроме обычного чата в приложении есть три режима для более серьёзных задач.</p>
+ <div class="feat">
+  <div><h3>Проекты</h3><p>Вы ставите задачу, а Координатор, Аналитик, Критик и Синтезатор обсуждают её по очереди. В конце вы получаете общий ответ, а не мнение одной модели.</p></div>
+  <div><h3>Artex Code</h3><p>Отдельная панель с деревом файлов, редактором и чатом с агентом. Агент предлагает изменения, вы применяете их по одному или все сразу, а последнее можно откатить.</p></div>
+  <div><h3>Файлы и фото</h3><p>К сообщению можно прикрепить текстовый файл или фотографию. Текст с фото распознаётся прямо на устройстве и уже потом уходит модели.</p></div>
+  <div><h3>Чаты под рукой</h3><p>Поиск по чатам, переименование, выбор нескольких для удаления, цветовые темы. Историю можно выгрузить в JSON или Markdown.</p></div>
+ </div>
+ <p class="warn">Artex работает поверх моделей других компаний. Всё, что вы отправляете в онлайн-режимах, обрабатывает выбранная вами модель через OpenRouter.</p>
+</section>
+
+<section id="key">
+ <h2>Как получить бесплатный API-ключ</h2>
+ <p class="lead">Онлайн-режимам Artex нужен ключ OpenRouter. Это сервис, через который можно обращаться к разным моделям. Регистрация бесплатная, карта не нужна.</p>
+ <ol class="steps">
+  <li><span class="num">1</span><div><h3>Зарегистрируйтесь на OpenRouter</h3><p>Откройте <a href="https://openrouter.ai" target="_blank" rel="noopener">openrouter.ai</a> и нажмите Sign In. Войти можно через Google, GitHub или по e-mail.</p></div></li>
+  <li><span class="num">2</span><div><h3>Создайте ключ</h3><p>Перейдите на страницу <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a> и нажмите Create API Key. Назовите его, например, Artex. Лимит расходов задавать не обязательно.</p></div></li>
+  <li><span class="num">3</span><div><h3>Скопируйте ключ сразу</h3><p>Он начинается с <code>sk-or-v1-</code> и показывается один раз. Если потеряете, создайте новый, а старый удалите.</p><p>Никому не показывайте ключ и не выкладывайте его в открытом виде. С ним другой человек сможет тратить ваш лимит.</p></div></li>
+  <li><span class="num">4</span><div><h3>Вставьте ключ в Artex</h3><p>Откройте боковое меню, затем Настройки. В разделе «API-ключ (OpenRouter)» вставьте ключ и нажмите «Сохранить».</p></div></li>
+  <li><span class="num">5</span><div><h3>Выберите бесплатную модель</h3><p>В тех же настройках в списке «Модель OpenRouter (Nova)» выберите <code id="m">openrouter/free</code><button class="copy" type="button" id="cp">Копировать</button></p><p>Это бесплатный маршрутизатор OpenRouter: он сам подбирает доступную бесплатную модель. Вручную у бесплатных моделей в названии стоит окончание <code>:free</code>, список есть на <a href="https://openrouter.ai/models" target="_blank" rel="noopener">openrouter.ai/models</a>, там же можно отфильтровать бесплатные.</p></div></li>
+  <li><span class="num">6</span><div><h3>Включите Nova и пишите</h3><p>В шапке нажмите на кнопку с моделью, выберите Nova и отправьте первое сообщение. Если ответ пришёл, всё настроено.</p></div></li>
+ </ol>
+
+ <div class="limits">
+  <div><b>20 в минуту</b><span>запросов к бесплатным моделям, у всех аккаунтов</span></div>
+  <div><b>50 в день</b><span>пока на аккаунт не пополнено кредитов хотя бы на $10 за всё время</span></div>
+  <div><b>1000 в день</b><span>после единоразового пополнения на $10 или больше</span></div>
+ </div>
+ <p class="warn">Бесплатный набор моделей у OpenRouter часто меняется, а часть провайдеров может использовать запросы для обучения своих моделей. Не отправляйте через бесплатные модели пароли и личные данные. Лимиты действительны на октябрь 2026 года, актуальные цифры смотрите в документации OpenRouter.</p>
+</section>
+
+<section id="faq">
+ <h2>Частые вопросы</h2>
+ <div style="margin-top:22px">
+ <details><summary>Artex — это отдельная нейросеть?</summary><p>Нет. Offline отвечает из встроенной базы, а Nova, Pro и проекты используют модели, доступные через OpenRouter. Artex даёт интерфейс, режимы и инструменты вокруг них.</p></details>
+ <details><summary>Где хранятся ключ и переписка?</summary><p>В памяти браузера или приложения на вашем устройстве. Ключ отправляется только на сервер, к которому вы обращаетесь: OpenRouter или адрес из настроек Custom.</p></details>
+ <details><summary>Пришла ошибка про лимит или код 429</summary><p>Вы упёрлись в лимит запросов, поминутный или дневной. Подождите минуту или до следующих суток. Если ошибка о балансе, проверьте, что на аккаунте OpenRouter нет отрицательного баланса.</p></details>
+ <details><summary>Ответ не приходит или модель недоступна</summary><p>Бесплатные модели иногда перегружены или пропадают из каталога. Попробуйте ещё раз, выберите другую бесплатную модель или оставьте <code>openrouter/free</code>, чтобы OpenRouter подобрал её сам.</p></details>
+ <details><summary>Нужно ли платить, чтобы пользоваться Artex?</summary><p>Нет, если хватает бесплатных моделей и лимитов выше. Платные модели в списке настроек тарифицирует OpenRouter с вашего баланса.</p></details>
+ </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>Artex Beta 0.9</span><span>Приложение в разработке, возможности могут меняться</span></div></footer>
+
+<script>
+(function(){
+ var b=document.getElementById('cp');
+ b.addEventListener('click',function(){
+  var t=document.getElementById('m').textContent;
+  function ok(){b.textContent='Скопировано';setTimeout(function(){b.textContent='Копировать'},1600)}
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(ok,function(){})}
+ });
+})();
+</script>
+</body>
+</html>
